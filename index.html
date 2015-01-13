@@ -1,124 +1,10 @@
 <html>
 <head>
-<style>
-body {
-	background-color: rgb(50, 34, 25);
-	color:yellow;
-	padding:10px;
-	font-size: 20px;
-}
-a {
-	color: yellow;
-}
-h1 {
-	font-family: 'Orbitron', sans-serif;
-	opacity: 0.1;
-	box-sizing:border-box;
-	text-transform: uppercase;
-	font-size: 7em;
-	word-break:break-word;
-	-webkit-transition: opacity 0.2s;
-	-o-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-	text-shadow:3px 3px #000;
-}
-.visible h1 {
-	opacity: 1;
-}
-section a {
-	display: none;
-}
-.visible section a {
-	display: block;
-}
-hr {
-	border-color: yellow;
-}
-</style>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-
-function its_time(link) {
-	var audio = document.querySelector('#sound');
-	document.body.classList.add('visible');
-	// document.querySelector('.percolator-where').setAttribute('href', link)
-	if (audio.paused === true) {
-		audio.addEventListener('ended', function() {
-			its_no_longer_time();
-			this.removeEventListener('ended');
-		});
-		audio.play();
-	}
-}
-function timeSince(date) {
-
-    var seconds = Math.floor((new Date() - date) / 1000);
-
-    var interval = Math.floor(seconds / 31536000);
-
-    if (interval > 1) {
-        return interval + " years";
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return interval + " months";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return interval + " days";
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return interval + " hours";
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return interval + " minutes";
-    }
-    return Math.floor(seconds) + " seconds";
-}
-function its_no_longer_time() {
-	document.body.classList.remove('visible');
-	// document.querySelector('.percolator-where').removeAttribute('href')
-}
-var last_time,
-	check_last_time;
-function update_time(time_string, link_string) {
-	var a, d;
-	if (time_string.length && link_string.length) {
-		last_time = d = new Date(time_string);
-		a = document.querySelector('.last-percolator-time');
-		a.innerText = timeSince(d) + ' ago';		
-		a.setAttribute('href', link_string);
-		if (!check_last_time) {
-			check_last_time = setInterval(function() {
-				a.innerText = timeSince(last_time) + ' ago';		
-				// console.log('updated', a.innerText)
-			}, 60000);
-		}
-	}
-}
-
-var socket = io('http://localhost');
-socket.on('hello', function(last) {
-	if (last && last.last_percolated && last.last_percolated_url) {
-		update_time(last.last_percolated, last.last_percolated_url);
-	}
-});
-socket.on('tweet', function (data) {
-	update_time(data);
-	its_time(data.url);		
-});
-window.addEventListener('load', function() {
-	// var perc = document.querySelector('.percolator-word'),
-	// 	h1 = document.querySelector('h1');
-	// if (perc.offsetWidth < window.innerWidth) {
-		
-	// 	console.log(perc.offsetWidth)
-	// }
-})
-</script>
-<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="style.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="script.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500' rel='stylesheet' type='text/css'>
+	<title>It's time for the  percolator.</title>
 </head>
 <body class="">
 	<header>
@@ -126,8 +12,8 @@ window.addEventListener('load', function() {
 	</header>
 	<hr>
 	<h3>Q: When is it time for the percolator?</h3>
-	<p>A: It was last time for the percolator <a target='_blank' class="last-percolator-time"></a>.  Generally, <a href="https://www.youtube.com/watch?v=yVTvzqIHiNk" target='_blank'>it's time for the percolator when someone says "it's time for the percolator"</a>.  To make sure you're tuned in when it's next time for the percolator, I recommend leaving this website open in the background.</p>
-	<p>Webmaster: <a href="http://bigboy.us">Jeff Sisson</a></p>
+	<p>A: It was last time for the percolator <a target='_blank' class="last-percolator-time"></a>.  Generally, <a href="https://www.youtube.com/watch?v=yVTvzqIHiNk" target='_blank'>it's time for the percolator when someone says "it's time for the percolator"</a>.</p><p>To make sure you're informed when it's next time for the percolator, I recommend leaving this website open in the background of your browser.</p>
+	<p style="opacity:0.2;">Webmaster: <a href="http://bigboy.us">Jeff Sisson</a></p>
 	<audio id="sound" src="http://bigboy.us/other/percolator.mp3"></audio>
 </body>
 </html>

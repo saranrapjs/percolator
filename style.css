@@ -1,0 +1,33 @@
+body {
+	background-color: rgb(50, 34, 25);
+	color:yellow;
+	padding:10px;
+	font-size: 20px;
+}
+a {
+	color: yellow;
+}
+h1 {
+	font-family: 'Orbitron', sans-serif;
+	opacity: 0.1;
+	box-sizing:border-box;
+	text-transform: uppercase;
+	font-size: 7em;
+	word-break:break-word;
+	-webkit-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+	text-shadow:3px 3px #000;
+}
+.visible h1 {
+	opacity: 1;
+}
+section a {
+	display: none;
+}
+.visible section a {
+	display: block;
+}
+hr {
+	border-color: yellow;
+}
