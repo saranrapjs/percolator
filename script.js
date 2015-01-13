@@ -1,4 +1,3 @@
-
 function its_time(link) {
 	var audio = document.querySelector('#sound');
 	document.body.classList.add('visible');
@@ -69,5 +68,4 @@ socket.on('hello', function(last) {
 socket.on('tweet', function (data) {
 	update_time(data);
 	its_time(data.url);		
-}); }
-})
+});
