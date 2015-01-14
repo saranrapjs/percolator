@@ -52,7 +52,7 @@ function handler (req, res) {
 function filter(text) {
 	text = text.toLowerCase();
 	if (text.indexOf('percolator') === -1 && text.indexOf('perculator') === -1) return false;
-	if (text.indexOf('time') === -1 || text.indexOf('for') === -1) return false;
+	if (text.indexOf('time') === -1 || (text.indexOf('for') === -1 && text.indexOf('4') === -1)) return false;
 	return true;
 }
 
