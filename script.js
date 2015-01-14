@@ -66,6 +66,6 @@ socket.on('hello', function(last) {
 	}
 });
 socket.on('tweet', function (data) {
-	update_time(data.last_percolated, data.last_percolated_url, data.last_percolated_text);
+	update_time(data.last_percolated, data.url, data.text); // weird that i do this 3 billion differnt ways?
 	its_time();		
 });
