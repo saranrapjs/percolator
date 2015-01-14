@@ -1,7 +1,6 @@
-function its_time(link) {
+function its_time() {
 	var audio = document.querySelector('#sound');
 	document.body.classList.add('visible');
-	// document.querySelector('.percolator-where').setAttribute('href', link)
 	if (audio.paused === true) {
 		audio.addEventListener('ended', function() {
 			its_no_longer_time();
@@ -43,29 +42,30 @@ function its_no_longer_time() {
 }
 var last_time,
 	check_last_time;
-function update_time(time_string, link_string) {
-	var a, d;
+function update_time(time_string, link_string, text) {
+	var a, t, d;
 	if (time_string.length && link_string.length) {
 		last_time = d = new Date(time_string);
-		a = document.querySelector('.last-percolator-time');
-		a.innerText = timeSince(d) + ' ago';		
+		t = document.querySelector('.last-percolator-time');
+		t.innerText = timeSince(d) + ' ago';		
+		a = document.querySelector('.last-percolator-text');
 		a.setAttribute('href', link_string);
+		a.innerText = text;
 		if (!check_last_time) {
 			check_last_time = setInterval(function() {
-				a.innerText = timeSince(last_time) + ' ago';		
+				t.innerText = timeSince(last_time) + ' ago';		
 				// console.log('updated', a.innerText)
 			}, 60000);
 		}
 	}
 }
-
 var socket = io('http://itstimeforthepercolator.com'); // change to localhost for local dev
 socket.on('hello', function(last) {
-	if (last && last.last_percolated && last.last_percolated_url) {
-		update_time(last.last_percolated, last.last_percolated_url);
+	if (last && last.last_percolated && last.last_percolated_url && last.last_percolated_text) {
+		update_time(last.last_percolated, last.last_percolated_url, last.last_percolated_text);
 	}
 });
 socket.on('tweet', function (data) {
-	update_time(data);
-	its_time(data.url);		
+	update_time(data.last_percolated, data.last_percolated_url, data.last_percolated_text);
+	its_time();		
 });
