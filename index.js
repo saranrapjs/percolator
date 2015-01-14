@@ -14,7 +14,7 @@ try {
 		cached_tweet = JSON.parse(cache);
 
 	// console.log(cached_tweet);
-	
+
 	if (cached_tweet.url && cached_tweet.last_percolated && cached_tweet.text) {
 		last_percolated_url = cached_tweet.url;
 		last_percolated_text = cached_tweet.text;
@@ -51,7 +51,7 @@ function handler (req, res) {
 
 function filter(text) {
 	text = text.toLowerCase();
-	if (text.indexOf('percolator') === -1) return false;
+	if (text.indexOf('percolator') === -1 && text.indexOf('perculator') === -1) return false;
 	if (text.indexOf('time') === -1 || text.indexOf('for') === -1) return false;
 	return true;
 }
@@ -63,7 +63,7 @@ var config = require(__dirname + '/config.json');
 
 var T = new Twit(config);
 
-var stream = T.stream('statuses/filter', { track: 'percolator' })
+var stream = T.stream('statuses/filter', { track: ['percolator','perculator'] })
 
 function cache_latest(tweet) {
 	last_percolated = tweet.last_percolated;
