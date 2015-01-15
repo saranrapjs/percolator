@@ -11,7 +11,11 @@ function its_time() {
 }
 function timeSince(date) {
 
-    var seconds = Math.floor((new Date() - date) / 1000);
+	var now = new Date();
+
+	now = new Date(now.valueOf() + now.getTimezoneOffset() * 60000); // convert NOW to UTC?
+
+    var seconds = Math.floor((now - date) / 1000);
 
     var interval = Math.floor(seconds / 31536000);
 
