@@ -13,7 +13,7 @@ function timeSince(date) {
 
 	var now = new Date();
 
-	now = new Date(now.valueOf() + now.getTimezoneOffset() * 60000); // convert NOW to UTC?
+	// now = new Date(now.valueOf() + now.getTimezoneOffset() * 60000); // convert NOW to UTC?
 
     var seconds = Math.floor((now - date) / 1000);
 
@@ -49,6 +49,7 @@ var last_time,
 function update_time(time_string, link_string, text) {
 	var a, t, d;
 	if (time_string.length && link_string.length) {
+		// console.log(time_string);
 		last_time = d = new Date(time_string);
 		t = document.querySelector('.last-percolator-time');
 		t.textContent = timeSince(d) + ' ago';		
