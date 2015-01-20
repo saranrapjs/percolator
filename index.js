@@ -51,7 +51,7 @@ function handler (req, res) {
 
 function filter(text) {
 	text = text.toLowerCase();
-	if (text.indexOf('percolator') === -1 && text.indexOf('perculator') === -1) return false;
+	if (text.indexOf('percolator') === -1 && text.indexOf('perculator') === -1 && text.indexOf('percolater') === -1) return false;
 	if (text.indexOf('time for') === -1 && text.indexOf('time 4') === -1 ) return false;
 	return true;
 }
@@ -63,7 +63,7 @@ var config = require(__dirname + '/config.json');
 
 var T = new Twit(config);
 
-var stream = T.stream('statuses/filter', { track: ['percolator','perculator'] })
+var stream = T.stream('statuses/filter', { track: ['percolator','perculator','percolater'] })
 
 function cache_latest(tweet) {
 	last_percolated = tweet.last_percolated;
