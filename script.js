@@ -51,14 +51,13 @@ function update_time(time_string, link_string, text) {
 	if (time_string.length && link_string.length) {
 		last_time = d = new Date(time_string);
 		t = document.querySelector('.last-percolator-time');
-		t.innerText = timeSince(d) + ' ago';		
+		t.textContent = timeSince(d) + ' ago';		
 		a = document.querySelector('.last-percolator-text');
 		a.setAttribute('href', link_string);
-		a.innerText = text;
+		a.textContent = text;
 		if (!check_last_time) {
 			check_last_time = setInterval(function() {
-				t.innerText = timeSince(last_time) + ' ago';		
-				// console.log('updated', a.innerText)
+				t.textContent = timeSince(last_time) + ' ago';		
 			}, 60000);
 		}
 	}
