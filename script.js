@@ -54,7 +54,7 @@ function update_time(time_string, link_string, text) {
 		t.textContent = timeSince(d) + ' ago';		
 		a = document.querySelector('.last-percolator-text');
 		a.setAttribute('href', link_string);
-		a.textContent = text;
+		a.innerHTML = text;
 		if (!check_last_time) {
 			check_last_time = setInterval(function() {
 				t.textContent = timeSince(last_time) + ' ago';		
