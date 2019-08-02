@@ -52,18 +52,18 @@ function update_time(time_string, link_string, text) {
 		// console.log(time_string);
 		last_time = d = new Date(time_string);
 		t = document.querySelector('.last-percolator-time');
-		t.textContent = timeSince(d) + ' ago';		
+		t.textContent = timeSince(d) + ' ago';
 		a = document.querySelector('.last-percolator-text');
 		a.setAttribute('href', link_string);
 		a.innerHTML = text;
 		if (!check_last_time) {
 			check_last_time = setInterval(function() {
-				t.textContent = timeSince(last_time) + ' ago';		
+				t.textContent = timeSince(last_time) + ' ago';
 			}, 60000);
 		}
 	}
 }
-var socket = io('http://itstimeforthepercolator.com'); // change to localhost for local dev
+var socket = io(window.location.href);
 socket.on('hello', function(last) {
 	if (last && last.last_percolated && last.last_percolated_url && last.last_percolated_text) {
 		update_time(last.last_percolated, last.last_percolated_url, last.last_percolated_text);
@@ -71,5 +71,5 @@ socket.on('hello', function(last) {
 });
 socket.on('tweet', function (data) {
 	update_time(data.last_percolated, data.url, data.text); // weird that i do this 3 billion differnt ways?
-	its_time();		
+	its_time();
 });
